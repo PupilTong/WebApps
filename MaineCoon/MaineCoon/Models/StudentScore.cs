@@ -11,7 +11,7 @@ namespace MaineCoon.Models {
         public double  T { get; set; }
         [Display(Name = "GRE Score"), Required]
         public double G { get; set; }
-        [Display(Name = "Univrtdiy Ranking"), Required]
+        [Display(Name = "Univrsity Ranking"), Required]
         public double UR { get; set; }
         [Display(Name = "Statement of Purpose"), Required]
         public double SOP { get; set; }

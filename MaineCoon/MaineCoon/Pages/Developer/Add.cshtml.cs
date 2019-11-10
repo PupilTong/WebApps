@@ -21,6 +21,8 @@ namespace MaineCoon.Pages.Developer
         }
         [BindProperty]
         public Processer processorInfo { get; set; }
+        [BindProperty]
+        public string jsonSummary { get; set; }
         public async Task<IActionResult> OnPostAsync() {
             if (_context.Processers.Where(procer => procer.friendlyName == processorInfo.friendlyName).Any()) {
                 throw new Exception("Processer Existed!");
@@ -28,6 +30,7 @@ namespace MaineCoon.Pages.Developer
             else {
                 processorInfo.belongsToUserID = Convert.ToInt32(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier)?.Value);
                 processorInfo.isTrained = false;
+                processorInfo.AlgorithmParameterJson = jsonSummary;
                 if (!ModelState.IsValid) {
                     return Page();
                 }

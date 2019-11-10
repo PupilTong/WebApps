@@ -29,7 +29,7 @@ namespace MaineCoon.Models {
         [Required]
         public string email { get; set; }
 
-        [Display(Name = "SHA2.HMAC(SALT,SHA2.HMAC(email,pwd))")]
+        [Display(Name = "Password")]//SHA2.HMAC(SALT,SHA2.HMAC(email,pwd))
         [DataType(DataType.Password)]
         [Required]
         public byte[] password {

@@ -5,7 +5,9 @@ body {
     background-color: whitesmoke;
 }
 
-
+.icon{
+    height:8vh;
+}
 
 .form-signin {
     width: 100%;

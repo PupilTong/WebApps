@@ -4,70 +4,116 @@
     ViewData["Title"] = "Sign up";
 }
 <link rel="stylesheet" href="~/css/signin_and_signup.css" />
-<div class="container">
-    <form method="post" class="form-signin needs-validation" onsubmit="submitsha()" novalidate>
-        <!--
-    <div class="col">
-        <div class="alert alert-primary" role="alert">
-            This is a primary alert—check it out!
-        </div>
-    </div>
-     -->
-        <div class="row" style="height:20vh"></div>
-        <div class="row justify-content-center">
-            <img class="mb-4" src="https://github.com/ThreeHungryChinese/QINGXUAN-S-PART/blob/master/3hungry.png?raw=true" alt="" width="72" height="72">
-        </div>
-        <div class="row">
-            <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input asp-for="UserData.email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <label for="Name" class="sr-only">Name</label>
-            <input asp-for="UserData.name" type="text" id="name" class="form-control" placeholder="Name" required >
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input asp-for="UserData.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <label class="sr-only">Account Role</label>
-            <select asp-for="UserData.sysRole" class="custom-select form-control" id="AccountRole" required>
-                <option selected>Choose Account Role</option>
-                <option value="0">Student</option>
-                <option value="1">SchoolAdmin</option>
-                <option value="2">Developer</option>
-                <option value="3">WebsiteAdmin</option>
-            </select>
-            <label for="reCAPTCHA" class="sr-only">reCAPTCHA</label>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                <label class="form-check-label" for="invalidCheck">
-                    Agree to terms and conditions
-                </label>
-                <div class="invalid-feedback">
-                    You must agree before submitting.
+<link rel="stylesheet" href="~/css/step.css" />
+<div class="main">
+    <div class="container formcontainer">
+        <h2>@ViewData["Title"]</h2>
+        <form method="POST" id="signup-form" class="signup-form needs-validation step-form" novalidate>
+            <h3>
+                Your Information
+            </h3>
+            <fieldset>
+                <div class="form-row form-group">
+                    <input asp-for="UserData.email" type="email" id="email" name="UserData.email" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.UserData.email)" required autofocus>
+                    <span asp-validation-for="UserData.email" class="text-danger"></span>
                 </div>
-            </div>
+                <div class="form-row form-group">
+                    <input asp-for="UserData.name" type="text" id="name" name="UserData.name" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.UserData.name)" required>
+                    <span asp-validation-for="UserData.name" class="text-danger"></span>
+                </div>
+                <div class="form-row form-group">
+                    <input type="password" name="password" id="password" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.UserData.password)" data-msg-required="password is required." data-rule-required="true" required>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="password" data-valmsg-replace="true"></span>
+                    <input hidden asp-for="UserData.password" type="password" id="hmacpwd" />
+                </div>
+                <div class="form-row form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="invalidCheck" name="invalidCheck" required>
+                        <label class="form-check-label" for="invalidCheck">
+                            Agree to terms and conditions
+                        </label>
+                        <div class="invalid-feedback">
+                            You must agree before submitting.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <label for="reCAPTCHA" class="sr-only">reCAPTCHA</label>
+                </div>
+            </fieldset>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </div>
+            <h3>
+                Role
+            </h3>
+            <fieldset>
+                <div class="form-radio">
+                    <label for="job" class="label-radio">Select a role</label>
+                    <div class="form-flex">
 
-    </form>
+                        <div class="form-radio">
+                            <input asp-for="UserData.sysRole" type="radio" value="@Models.User.role.Student" id="@Models.User.role.Student.ToString()" checked />
+                            <label for="@Models.User.role.Student.ToString()">
+                                <figure>
+                                    <span data-feather="user" class="icon"></span>
+                                </figure>
+                                <span>@Models.User.role.Student.ToString()</span>
+                            </label>
+                        </div>
+
+                        <div class="form-radio">
+                            <input asp-for="UserData.sysRole" type="radio" value="@Models.User.role.SchoolAdmin" id="@Models.User.role.SchoolAdmin.ToString()" />
+                            <label for="@Models.User.role.SchoolAdmin.ToString()">
+                                <figure>
+                                    <span data-feather="home" class="icon"></span>
+                                </figure>
+                                <span>@Models.User.role.SchoolAdmin.ToString()</span>
+                            </label>
+                        </div>
+
+                        <div class="form-radio">
+                            <input asp-for="UserData.sysRole" type="radio" value="@Models.User.role.Developer" id="@Models.User.role.Developer.ToString()" />
+                            <label for="@Models.User.role.Developer.ToString()">
+                                <figure>
+                                    <span data-feather="codesandbox" class="icon"></span>
+                                </figure>
+                                <span>@Models.User.role.Developer.ToString()</span>
+                            </label>
+                        </div>
+
+                        <div class="form-radio">
+                            <input asp-for="UserData.sysRole" type="radio" value="@Models.User.role.WebsiteAdmin" id="@Models.User.role.WebsiteAdmin.ToString()" />
+                            <label for="@Models.User.role.WebsiteAdmin.ToString()">
+                                <figure>
+                                    <span data-feather="tool" class="icon"></span>
+                                </figure>
+                                <span>@Models.User.role.WebsiteAdmin.ToString()</span>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </fieldset>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        </form>
+    </div>
 </div>
 
+
+
+
+<script src="~/js/sha256.min.js"></script>
+<script src="~/js/step.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6Lefar0UAAAAAIQYedhHO0bnH4L9lw5wFCJ5yH0T"></script>
 <script>
-    grecaptcha.ready(function () {
-        grecaptcha.execute('6Lefar0UAAAAAIQYedhHO0bnH4L9lw5wFCJ5yH0T', { action: 'login' }).then(function (token) {
-            document.getElementById("retoken").value = token;
+    (function () {
+        $(".needs-validation").bind("submit", function () {
+            $("#hmacpwd")[0].value = sha256.hmac($("#email")[0].value, $("#password")[0].value);
         });
-    });
+    })();
 </script>
 <script>
-    function submitsha() {
-        document.getElementById("inputPassword").value = sha256.hmac(document.getElementById("inputEmail").value, document.getElementById("inputPassword").value);
-    }
-</script>
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {
         'use strict';
         window.addEventListener('load', function () {
@@ -86,7 +132,14 @@
         }, false);
     })();
 </script>
-<script src="~/js/sha256.min.js"></script>
+<script>
+    grecaptcha.ready(function () {
+        grecaptcha.execute('6Lefar0UAAAAAIQYedhHO0bnH4L9lw5wFCJ5yH0T', { action: 'login' }).then(function (token) {
+            document.getElementById("retoken").value = token;
+        });
+    });
+</script>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

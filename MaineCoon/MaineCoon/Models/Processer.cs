@@ -67,7 +67,7 @@ namespace MaineCoon.Models {
         /// <summary>
         /// 
         /// </summary>
-        [Display(Name = "Public Key")]
+        [Display(Name = "token")]
         [Required]
         public string publicKey { get; set; }
         /// <summary>
@@ -80,5 +80,8 @@ namespace MaineCoon.Models {
         /// </summary>
         [Display(Name = "Call Count")]
         public int count { get; set; }
+        [Display(Name ="Algorithm Parameter")]
+        [Required]
+        public string AlgorithmParameterJson { get; set; }
     }
 }
