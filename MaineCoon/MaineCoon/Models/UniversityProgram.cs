@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,17 +19,7 @@ namespace MaineCoon.Models {
         [Display(Name ="UserId")]
         public int BelongsToUserId { get; set; }
 
-
-        [Display(Name = "CV Text Algorithm Id")]
-        public int CVTextProcesserId { get; set; }
-
-
-        [Display(Name = "RL Text Algorithm Id")]
-        public int RLTextProcesserId { get; set; }
-
-        [Display(Name = "SOP Text Algorithm Id")]
-        public int SOPTextProcesserId { get; set; }
-
+        
         [Display(Name = "Score Algorithm Id")]
         [Required]
         public int ProcesserId { get; set; }
