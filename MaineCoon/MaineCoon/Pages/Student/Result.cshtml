@@ -1,7 +1,5 @@
 ﻿@page
 @model MaineCoon.Pages.Student.ResultModel
-@using System.Web;
-@using System.Net.Http;
 @{
     ViewData["Title"] = "Result";
 }
@@ -15,9 +13,7 @@
         <h4 style="padding:1vh" class="">Generateing&nbsp;Scores...</h4>
     </div>
     <div class="row  text-center justify-content-center" id="Result">
-        <h1> 
-        @Html.Raw(HttpUtility.UrlDecode(HttpUtility.HtmlDecode(ViewData["result"].ToString())))
-        </h1>
+        <h1> @ViewData["result"]</h1>
     </div>
 <style>
   

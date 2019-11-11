@@ -41,7 +41,7 @@ namespace MaineCoon.Pages.Student
                     var responseBody = await response.Content.ReadAsStringAsync();
                     responseBody = HttpUtility.UrlEncode(responseBody);
                     responseBody = HttpUtility.HtmlEncode(responseBody);
-                    return Redirect("Result?resultArgs=" + String.Format("{0}", responseBody));
+                    return Redirect("Result?resultArgs=" + String.Format("Your Score is {0}", responseBody));
                 }
             }
             catch (Exception) {

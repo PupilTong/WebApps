@@ -27,11 +27,11 @@ namespace MaineCoon.Pages.Developer
                     var oneCard = new _Card();
                     oneCard.Head = oneProcesser.Id.ToString();
                     oneCard.BodyTitle = oneProcesser.friendlyName;
-                    oneCard.Body = string.Format("This processor has been called {0} times", oneProcesser.count);
-                    oneCard.Btn0URL = Request.Path + "/Edit?id=" + oneProcesser.Id;
+                    oneCard.Body = string.Format("This processor has been called {0} times", 25);
+                    oneCard.Btn0URL = Url.Content("/Developer/Edit");
                     oneCard.Btn0Label = "Edit";
-                    oneCard.Btn1URL = Request.Path + "/Delete?id=" + oneProcesser.Id;
-                    oneCard.Btn1Label = "Delete";
+                    oneCard.Btn1URL = Url.Content("/Developer/Reset");
+                    oneCard.Btn1Label = "Reset";
                     _Cards.Add(oneCard);
                 }
                 ViewData["CardList"] = _Cards;
