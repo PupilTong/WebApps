@@ -3,62 +3,123 @@
 @{
     ViewData["Title"] = "Add";
 }
+<link rel="stylesheet" href="~/css/step.css" />
+<div class="main">
+    <div class="container formcontainer">
+        <h2>Build your Algorithm</h2>
+        <form method="POST" id="signup-form" class="step-form" enctype="multipart/form-data">
+            <h3>
+                Program Parameter Setting
+            </h3>
+            <fieldset>
+                <div class="dynamicInput">
+                    <div class="entry input-group form-group form-row">
+                        <div class="col-4">
+                            <input class="form-control" name="parameterName[]" id="parameterName" type="text" placeholder="parameter name" required />
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" name="parameterInstruction[]" id="parameterInstruction" type="text" placeholder="parameter Instruction" required />
+                        </div>
+                        <div class="col-2">
+                            <select class="custom-select form-control" id="parameterType" required>
+                                <option value="@Models.CataType.Type.number">@Models.CataType.Type.number</option>
+                                <option value="@Models.CataType.Type.text">@Models.CataType.Type.text</option>
+                                <option value="@Models.CataType.Type.file">@Models.CataType.Type.file</option>
+                            </select>
+                        </div>
+                        <div class="input-group-btn col-1">
+                            <button class="btn btn-success btn-add" type="button">
+                                <span data-feather="plus"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <h3>
+                Algorithm Setting
+            </h3>
+
+            <fieldset>
+            </fieldset>
 
 
+            <h3>
+                Summary
+            </h3>
+            <fieldset>
+                <div class="form-row form-group">
+                    <input class="form-control" asp-for="NewProgram.ProgramName" type="text" id="ProgramName" placeholder="@Html.DisplayNameFor(model => model.NewProgram.ProgramName)" required />
+                    <span asp-validation-for="NewProgram.ProgramName" class="text-danger"></span>
+                </div>
+                <div class="form-row form-group">
+                    <input class="form-control" asp-for="NewProgram.ProgramIntroduction" type="text" id="ProgramName" placeholder="@Html.DisplayNameFor(model => model.NewProgram.ProgramIntroduction)" required />
+                    <span asp-validation-for="NewProgram.ProgramIntroduction" class="text-danger"></span>
+                </div>
+                <div class=" form-group form-row">
+                    <textarea asp-for="jsonSummary" id="jsonSummary" class="form-control" style="height:15vh;overflow:scroll" placeholder="Json Summary" readonly required>
+                    </textarea>
+                </div>
+            </fieldset>
 
-
-<div class="row">
-    <h1>@ViewData["Title"] </h1>
+        </form>
+    </div>
 </div>
-
-<div class="row" style="height:10vh"></div>
-
-<form method="post" class="needs-validation" novalidate>
-    <div class="row">
-        <h4>@Html.DisplayNameFor(model => model.NewProgram.ProgramName)</h4>
-    </div>
-    <div class="row">
-        <div class="col">
-            <label for="friendlyName" class="sr-only">@Html.DisplayNameFor(model => model.NewProgram.ProgramName)</label>
-            <input type="text" asp-for="NewProgram.ProgramName" id="ProgramName" class="form-control" placeholder="Your Program Name" required autofocus>
-        </div>
-    </div>
-
-    <div class="row"><h4>@Html.DisplayNameFor(model => model.NewProgram.ProcesserId)</h4></div>
-    <div class="row">
-        <div class="col">
-            <label for="publicKey" class="sr-only">@Html.DisplayNameFor(model => model.NewProgram.ProcesserId)</label>
-            <select asp-for="NewProgram.ProcesserId" class="custom-select form-control" id="AccountRole" required>
-                <option selected>Choose A Program</option>
-                @foreach (var processer in this.Model.processers) {
-                    <option value="@processer.Key">@processer.Value</option>
-                }
-            </select>
-        </div>
-    </div>
-
-    <div class="row">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    </div>
-
-    <div class="row" style="height:1vh"></div>
-
-    <div class="row">
-        <div class="col">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">@ViewData["Title"] </button>
-        </div>
-    </div>
-
-</form>
-<style>
-    p {
-        margin-bottom: 0;
-        padding-top: 0.4rem;
-        color: lightslategray
-    }
-</style>
 <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
+
+    (function ($) {
+        window.addEventListener('load', function () {
+            var form = $(".needs-validation");
+            form.validate({
+                ignore: ":hidden,:disabled"
+            });
+        }, false);
+        var form = $(".step-form");
+        form.steps({
+            headerTag: "h3",
+            bodyTag: "fieldset",
+            transitionEffect: "fade",
+            labels: {
+                previous: 'Previous',
+                next: 'Next',
+                finish: 'Finish',
+                current: ''
+            },
+            titleTemplate: '<h3 class="title">#title#</h3>',
+
+            onStepChanging: function (event, currentIndex, newIndex) {
+                form.validate().settings.ignore = ":disabled,:hidden";
+                    /*
+                if (newIndex == 2) {
+                    var json = {};
+                    json["parameters"] = {};
+
+                    var parameterNames = $("input#parameterName");
+                    var parameterInstructions = $("input#parameterInstruction");
+                    var parameterTypes = $("select#parameterType");
+                    for (var i = 0; i < parameterNames.length; i++) {
+                        var parameter = {};
+                        parameter['Name'] = parameterNames.value;
+                        parameter['Instruction'] = parameterInstructions[i].value;
+                        parameter['Type'] = parameterTypes[i].Type;
+                        json['parameters'][i] = parameter;
+                    }
+                    $("#jsonSummary")[0].value = JSON.stringify(json);
+                }*/
+                return form.valid();
+            },
+            onFinishing: function (event, currentIndex) {
+                form.validate().settings.ignore = ":disabled,:hidden";
+                return form.valid();
+            },
+            onFinished: function (event, currentIndex) {
+                $(this).submit();
+            }
+        });
+
+    })(jQuery);
+</script>
+<script>
     (function () {
         'use strict';
         window.addEventListener('load', function () {
@@ -77,3 +138,8 @@
         }, false);
     })();
 </script>
+<script src="~/js/dynamicInput.js"></script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

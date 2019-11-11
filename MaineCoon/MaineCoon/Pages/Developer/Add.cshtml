@@ -17,6 +17,10 @@
                     <span asp-validation-for="processorInfo.friendlyName" class="text-danger"></span>
                 </div>
                 <div class="form-row form-group">
+                    <input class="form-control" asp-for="processorInfo.Instruction" type="text" id="Instruction" placeholder="@Html.DisplayNameFor(model => model.processorInfo.Instruction)" required />
+                    <span asp-validation-for="processorInfo.Instruction" class="text-danger"></span>
+                </div>
+                <div class="form-row form-group">
                     <input class="form-control" asp-for="processorInfo.trainCallbackURL" type="text" id="trainCallbackURL" placeholder="@Html.DisplayNameFor(model => model.processorInfo.trainCallbackURL)" required />
                     <span asp-validation-for="processorInfo.trainCallbackURL" class="text-danger"></span>
                 </div>
@@ -54,10 +58,10 @@
                 <div class="dynamicInput">
                     <div class="entry input-group form-group form-row">
                         <div class="col-3">
-                            <input class="form-control" id="parameterName" type="text" placeholder="parameter name" required />
+                            <input class="form-control" name="parameterName[]" id="parameterName"  type="text" placeholder="parameter name" required />
                         </div>
                         <div class="col-5">
-                            <input class="form-control" id="parameterInstruction" type="text" placeholder="parameter Instruction" required />
+                            <input class="form-control" name="parameterInstruction[]" id="parameterInstruction"  type="text" placeholder="parameter Instruction" required />
                         </div>
                         <div class="col-2">
                             <select class="custom-select form-control" id="parameterType" required>
@@ -66,11 +70,11 @@
                                 <option value="@Models.CataType.Type.file">@Models.CataType.Type.file</option>
                             </select>
                         </div>
-                        <span class="input-group-btn">
+                        <div class="input-group-btn col-1">
                             <button class="btn btn-success btn-add" type="button">
                                 <span data-feather="plus"></span>
                             </button>
-                        </span>
+                        </div>
                     </div>
                 </div>
             </fieldset>
@@ -81,9 +85,13 @@
             </h3>
             <fieldset>
                 <div class=" form-group form-row">
-                    <textarea asp-for="jsonSummary"  id="jsonSummary" class="form-control" style="height:15vh;overflow:scroll" placeholder="Json Summary">
+                    <textarea asp-for="processorInfo.AlgorithmParameterJson" id="jsonSummary" class="form-control" style="height:15vh;overflow:scroll" placeholder="@Html.DisplayNameFor(model => model.processorInfo.AlgorithmParameterJson)" readonly required>
                     </textarea>
-                </div> 
+                </div>
+                <div class=" form-group form-row">
+                    <textarea asp-for="processorInfo.publicKey" id="publicKey" class="form-control" style="height:15vh;overflow:scroll" placeholder="@Html.DisplayNameFor(model => model.processorInfo.publicKey)" required>
+                    </textarea>
+                </div>
             </fieldset>
 
         </form>
@@ -125,7 +133,7 @@
                     var parameter = {};
                     parameter['Name'] = parameterNames.value;
                     parameter['Instruction'] = parameterInstructions[i].value;
-                    parameter['Type'] = parameterTypes[i].Type;
+                    parameter['Type'] = parameterTypes[i].value;
                     json['parameters'][i] = parameter;
                 }
                 $("#jsonSummary")[0].value = JSON.stringify(json);

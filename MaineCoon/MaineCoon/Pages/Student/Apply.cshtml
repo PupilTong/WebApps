@@ -1,31 +1,42 @@
 ﻿@page
-@model MaineCoon.Pages.Student.AddApplyModel
+@model MaineCoon.Pages.Student.ApplyModel
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Apply";
 }
+@using Newtonsoft.Json;
+@using Newtonsoft.Json.Linq;
+<div class="row">
+    <h1>@ViewData["Title"] </h1>
+</div>
 
-
-
-
+<div class="row" style="height:10vh"></div>
 
 <form method="post" class="needs-validation" novalidate>
-  
-    <div class=" form-row form-group" style="padding:40vh 0vw">
-        <div class="col-11">
-            <input type="text" class="form-control" aria-describedby="Search" placeholder="Search" style="height:10vh">
+    @foreach (var item in Model.parameters) {
+    <div class=" form-group">
+        <div class="form-row">
+            <h4>@item.First["name"]</h4>
         </div>
-        <div class="col" style="height:10vh">
-            <button class="btn btn-success" id="Search" style="height:100%;width:100%" ><span data-feather="search" class="icon" style="filter:invert(0)"></span></button>
+        <div class="form-row">
+            <input class="form-control" type="@item.First["type"]" placeholder="@item.First["intro"]" name="@("parameter"+((JProperty)item).Name)" required />
         </div>
-        <!--span asp-validation-for="UserData.email" class="text-danger"><span-->
+    </div>
+    }
+
+
+    <div class="row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     </div>
 
 
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">@ViewData["Title"] </button>
+        </div>
+    </div>
+
 </form>
 <style>
-    body{
-        background-color:whitesmoke;
-    }
     p {
         margin-bottom: 0;
         padding-top: 0.4rem;

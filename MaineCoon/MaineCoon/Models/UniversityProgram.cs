@@ -19,19 +19,9 @@ namespace MaineCoon.Models {
         [Display(Name ="UserId")]
         public int BelongsToUserId { get; set; }
 
-
-        [Display(Name = "CV Text Algorithm Id")]
-        public int CVTextProcesserId { get; set; }
-
-
-        [Display(Name = "RL Text Algorithm Id")]
-        public int RLTextProcesserId { get; set; }
-
-        [Display(Name = "SOP Text Algorithm Id")]
-        public int SOPTextProcesserId { get; set; }
-
+        [Display(Name ="Admission Process Setting")]
+        public string ProgramJson { get; set; }
         [Display(Name = "Score Algorithm Id")]
-        [Required]
         public int ProcesserId { get; set; }
 
         [BindNever]
@@ -44,5 +34,8 @@ namespace MaineCoon.Models {
         [BindNever]
         [Display(Name = "IsEnabled")]
         public bool IsEnabled { get; set; }
+
+        [Display(Name = "Program Introduction"),StringLength(50)]
+        public string ProgramIntroduction { get; set; }
     }
 }

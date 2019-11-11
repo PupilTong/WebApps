@@ -83,5 +83,8 @@ namespace MaineCoon.Models {
         [Display(Name ="Algorithm Parameter")]
         [Required]
         public string AlgorithmParameterJson { get; set; }
+        [Display(Name ="Algorithm Instroduction"),StringLength(50)]
+        [Required]
+        public string Instruction { get; set; }
     }
 }

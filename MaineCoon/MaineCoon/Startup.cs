@@ -54,11 +54,6 @@ namespace MaineCoon {
 
             services.AddDbContext<MaineCoonContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnectionString")));
-            //services.AddSession(options => {
-            //    options.IdleTimeout = TimeSpan.FromHours(1);
-            //    options.Cookie.HttpOnly = true;
-            //    options.Cookie.IsEssential = true;
-            //});
         }
 
 
@@ -81,7 +76,6 @@ namespace MaineCoon {
 
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints => {
                 endpoints.MapRazorPages();
             });

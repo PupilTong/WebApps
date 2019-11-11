@@ -15,15 +15,12 @@ namespace MaineCoon.Pages.SchoolAdmin
             _context = context;
         }
         public IActionResult OnGet() {
-            processers = new Dictionary<int, string>();
-            foreach (var item in _context.Processers) {
-                processers.Add(item.Id, item.friendlyName);
-            }
             return Page();
         }
         [BindProperty]
         public UniversityProgram NewProgram { get; set; }
-        public Dictionary<int, string> processers { get; set; }
+        [BindProperty]
+        public string jsonSummary { get; set; }
         public async Task<IActionResult> OnPostAsync() {
             if (_context.UniversityPrograms.Where(procer => procer.ProgramName == NewProgram.ProgramName).Any()) {
                 throw new Exception("Processer Existed!");
