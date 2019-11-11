@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -62,13 +62,11 @@ namespace MaineCoon.Models {
         /// 
         /// </summary>
         [Display(Name = "TLS version")]
-        [Required]
         public TLSVersion TLSversion { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [Display(Name = "token")]
-        [Required]
         public string publicKey { get; set; }
         /// <summary>
         /// 
@@ -81,7 +79,6 @@ namespace MaineCoon.Models {
         [Display(Name = "Call Count")]
         public int count { get; set; }
         [Display(Name ="Algorithm Parameter")]
-        [Required]
         public string AlgorithmParameterJson { get; set; }
     }
 }
